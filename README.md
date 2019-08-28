@@ -3,32 +3,14 @@ A web application that displays films and its category in a database, allowing t
 
 ## Instructions
 
-## Backend
+Import and setup the films database using the films.sql file.
 
-- `GET		/api/films`
-- `GET		/api/films/:id`
-- `GET		/api/categories`
-- `GET		/api/categories/:id`
-- `POST		/api/films`
-- `POST		/api/categories`
-- `PUT		/api/films`
-- `DELETE	/api/films`
-- `GET		/api/films-categories`
+Update the credentials in the db.js file accordingly.
 
-All resources return JSON.
+To run the application use the following command 
 
-## Frontend
-
-- `index.html`
-- `films.html`
-- `show-film.html`
-- `insert-film.html`
-- `update-film.html`
-- `delete-film.html`
-- `categories.html`
-- `show-category.html`
-- `insert-category.html`
-
-Frontend must use Bootstrap
-
+```
+$nodejs app.js
+```
+Then open the browser at local http://localhost:3025/ to use the application.
 
