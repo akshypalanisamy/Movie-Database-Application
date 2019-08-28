@@ -1,0 +1,48 @@
+<!-- Page with a form to insert category,
+there is no need to set category_id or last_update,
+the database sets these values automatically -->
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+				<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="Author" content="Akshy Palanisamy">
+		<title>Insert Category</title>
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+
+	<body>
+	    <div class="container">
+			<h1 class="text-center">Add New A Category</h1>
+	        <form action="api/categories" name="categoryForm" method="POST" onsubmit="validation();">
+				<div class="form-group">
+	                <label for="category name">Category Name:</label>
+	                <input type="text" class="form-control" id="categoryName" name="categoryName">
+	      </div>
+				<br>
+	      <div class="form-group">
+	           <input type="submit" class="btn btn-primary btn-block"value="Submit">
+	      </div>
+	        </form>
+	    </div>
+			<script>
+			//validates the form and submits it
+			function validation()
+			{
+			    var category = document.forms["categoryForm"]["categoryName"];
+
+			    if (category.value == "")
+			    {
+			        window.alert("Please enter a category name.");
+			        category.focus();
+							event.preventDefault();
+			        return false;
+			    }
+
+			    return true;
+			}
+		</script>
+	</body>
+</html>

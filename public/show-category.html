@@ -1,0 +1,69 @@
+<!-- Shows all the categories -->
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Film Finder">
+<meta name="author" content="Akshy Palanisamy">
+<title>Find A Category</title>
+<!-- Bootstrap core CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container" >
+          <h1 class="text-center">Find A Category</h1>
+          <div class="text-center">
+          <br><label for="id">Category ID:</label>
+          <br><input type="text" id="categoryID">
+          <br><br><button type = "button" class="btn btn-primary btn-sm" id="find"  onclick="getCategory();">Find Category</button>
+          </div>
+
+
+  </div>
+  <br><br>
+  <table class = 'table table-bordered table-hover'><thead class='thead-dark'>
+  <tr>
+  <th>Category ID</th>
+  <th>Category</th>
+  </tr>
+  </thead>
+  <tbody id="Table">
+  </tbody>
+  </table>
+<script>
+
+//Gets the category and displays it in a table
+function getCategory(){
+  var categoryID = document.getElementById('categoryID').value;
+  console.log(categoryID);
+    var xhttp = new XMLHttpRequest();
+    var jsonObj;
+    var tableStr = "";
+    xhttp.onreadystatechange = function ReceivedCallback() {
+     if (this.readyState == 4 && this.status == 200) {
+       jsonObj = JSON.parse(this.responseText);
+
+       for (x in jsonObj){
+         tableStr += (
+         "<tr>" +
+         "	<td>" + jsonObj[x].category_id + "</td>" +
+         "	<td>" + jsonObj[x].name + "</td>" +
+         "</tr>"
+       );
+     }
+
+       document.getElementById("Table").innerHTML = tableStr;
+     }
+    };
+    console.log("http://leia.cs.spu.edu:3025/api/films/"+categoryID);
+    xhttp.open("GET", "http://leia.cs.spu.edu:3025/api/categories/"+categoryID, true);
+    xhttp.send();
+}
+
+
+
+</script>
+</body>
+</html>

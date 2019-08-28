@@ -1,0 +1,83 @@
+<!-- At the top, aligned inside a container there is a input text box and a button.
+The user inputs the ID of the film, when the button is pressed the film with its category is displayed below (without refreshing).
+If the film is not found an error message appears instead. -->
+
+
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Film Finder">
+<meta name="author" content="Akshy Palanisamy">
+<title>Find A Film</title>
+<!-- Bootstrap core CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container" >
+          <h1 class="text-center">Find A Film</h1>
+          <div class="text-center">
+          <br><label for="id">Film ID:</label>
+          <br><input type="text" id="filmID">
+          <br><br><button type = "button" class="btn btn-primary btn-sm" id="find"  onclick="getFilm();">Find Film</button>
+          </div>
+
+
+  </div>
+  <br><br>
+  <table class = 'table table-bordered table-hover'><thead class='thead-dark'>
+  <tr>
+  <th>ID</th>
+  <th>Title</th>
+  <th>Description</th>
+  <th>Release Date</th>
+  <th>Run-Time (min)</th>
+  <th>Rating</th>
+  <th>Category</th>
+  </tr>
+  </thead>
+  <tbody id="Table">
+  </tbody>
+  </table>
+<script>
+
+//gets the film and displays it in a table
+function getFilm(){
+  var filmID = document.getElementById('filmID').value;
+  console.log(filmID);
+    var xhttp = new XMLHttpRequest();
+    var jsonObj;
+    var tableStr = "";
+    xhttp.onreadystatechange = function ReceivedCallback() {
+     if (this.readyState == 4 && this.status == 200) {
+       jsonObj = JSON.parse(this.responseText);
+
+       for (x in jsonObj){
+         tableStr += (
+         "<tr>" +
+         "	<td>" + jsonObj[x].film_id + "</td>" +
+         "	<td>" + jsonObj[x].title + "</td>" +
+         "	<td>" + jsonObj[x].description + "</td>" +
+         "	<td>" + jsonObj[x].release_year + "</td>" +
+         "	<td>" + jsonObj[x].length + "</td>" +
+         "	<td>" + jsonObj[x].rating + "</td>" +
+         "	<td>" + jsonObj[x].name + "</td>" +
+         "</tr>"
+       );
+     }
+
+       document.getElementById("Table").innerHTML = tableStr;
+     }
+    };
+    console.log("http://leia.cs.spu.edu:3025/api/films/"+filmID);
+    xhttp.open("GET", "http://leia.cs.spu.edu:3025/api/films-categories/"+filmID, true);
+    xhttp.send();
+}
+
+
+
+</script>
+</body>
+</html>

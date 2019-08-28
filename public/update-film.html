@@ -1,0 +1,162 @@
+<!-- Like show-film.html, but this page will ”create” a form below so the user can update
+the values, and submit the changes. -->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+				<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="Author" content="Akshy Palanisamy">
+		<title>Update Film</title>
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+		<script type="text/javascript" src="utilities.js"></script>
+		<script type="text/javascript">
+			window.addEventListener('load', PopulateSelect);
+		</script>
+	</head>
+
+	<body>
+		<div class="container" >
+						<h1 class="text-center">Find A Film</h1>
+						<div class="text-center">
+						<br><label for="id">Film ID:</label>
+						<br><input type="text" id="filmIDs">
+						<br><br><button type = "button" class="btn btn-primary btn-sm" id="find"  onclick="getFilm();">Find Film</button>
+					</div><br>
+	    <div class="container">
+			<h1 class="text-center">Update The Film's Values</h1>
+
+	        <form name="filmForm" onsubmit="event.preventDefault();validation();">
+						<div class="form-group">
+											<label for="FilmID">FilmID: </label>
+											<p id="filmIDshow"></p>
+											 <input type="hidden" id="filmID" name="filmID" value="">
+									</div>
+				<div class="form-group">
+	                <label for="Title">Title:</label>
+	                <input type="text" class="form-control" id="title" name="title">
+	            </div>
+	            <div class="form-group">
+	                <label for="description">Description:</label>
+	                <input type="text" class="form-control" id="description" name="description">
+	            </div>
+	            <div class="form-group">
+	                <label for="releaseYear">Release Year:</label>
+	                <input type="text" class="form-control" id="releaseYear" name="releaseYear">
+	            </div>
+				<div class="form-group">
+	                <label for="length">Duration (min):</label>
+	                <input type="text" class="form-control" id="length" name="length">
+	            </div>
+				<div class="form-group">
+					<label for="rating">Rating:</label>
+					<select name="rating" id="rating" class="form-control">
+						<option value="G">G</option>
+						<option value="PG">PG</option>
+						<option value="PG-13">PG-13</option>
+						<option value="R">R</option>
+						<option value="NC-17">NC-17</option>
+					</select>
+				</div>
+				<div class="form-group">
+	                <label for="category">Category:</label>
+									<div id="categorySelect" name="categorySelect">
+	      </div>
+				<br>
+	      <div class="form-group">
+	           <input type="submit" class="btn btn-primary btn-block" value="Submit">
+	      </div>
+	        </form>
+	    </div>
+			<script>
+			//validates the form and puts the data
+			function validation()
+			{
+			    var title = document.forms["filmForm"]["title"];
+			    var description = document.forms["filmForm"]["description"];
+			    var release = document.forms["filmForm"]["releaseYear"];
+			    var length =  document.forms["filmForm"]["length"];
+
+			    if (title.value == "")
+			    {
+			        window.alert("Please enter a title.");
+			        title.focus();
+							event.preventDefault();
+			        return false;
+			    }
+
+			    if (description.value == "")
+			    {
+			        window.alert("Please enter a description.");
+			        description.focus();
+							event.preventDefault();
+			        return false;
+			    }
+
+			    if (((parseInt(release.value)) < 1900 || (parseInt(release.value) >2019)))
+			    {
+			        window.alert("Please enter a valid year.");
+			        release.focus();
+							event.preventDefault();
+			        return false;
+			    }
+
+			    if (parseInt(length.value) < 0)
+			    {
+			        window.alert("Please enter a valid duration");
+			        length.focus();
+							event.preventDefault();
+			        return false;
+			    }
+					event.preventDefault();
+					var xhttp = new XMLHttpRequest();
+					xhttp.open('PUT', "http://leia.cs.spu.edu:3025/api/films", true);
+					xhttp.setRequestHeader('Content-type','application/x-www-form-urlencoded; charset=utf-8');
+					var arr = new URLSearchParams();
+					arr.append("title",document.forms["filmForm"]["title"].value);
+					arr.append("description",document.forms["filmForm"]["description"].value);
+					arr.append("releaseYear",document.forms["filmForm"]["releaseYear"].value);
+					arr.append("length",document.forms["filmForm"]["length"].value);
+					arr.append("rating",document.forms["filmForm"]["rating"].value);
+					arr.append("categoryID",document.forms["filmForm"]["categoryID"].value);
+					arr.append("filmID",document.forms["filmForm"]["filmID"].value);
+
+console.log("SUBMITTED: "+arr);
+xhttp.send(arr);
+
+
+			}
+			//gets the film and sets the values
+			function getFilm(){
+				var filmID = document.getElementById('filmIDs').value;
+				console.log(filmID);
+					var xhttp = new XMLHttpRequest();
+					var jsonObj;
+					xhttp.onreadystatechange = function ReceivedCallback() {
+					 if (this.readyState == 4 && this.status == 200) {
+						 jsonObj = JSON.parse(this.responseText);
+						 console.log(jsonObj);
+						 for (x in jsonObj){
+							 console.log(jsonObj[x].title);
+			document.forms["filmForm"]["title"].value = jsonObj[x].title;
+			document.forms["filmForm"]["description"].value = jsonObj[x].description;
+			document.forms["filmForm"]["releaseYear"].value= jsonObj[x].release_year;
+			document.forms["filmForm"]["length"].value = jsonObj[x].length;
+			document.forms["filmForm"]["rating"].value = jsonObj[x].rating;
+			document.forms["filmForm"]["categoryID"].value= jsonObj[x].category_id;
+			document.forms["filmForm"]["filmID"].value = jsonObj[x].film_id;
+			document.getElementById('filmIDshow').innerHTML =  jsonObj[x].film_id;
+
+					 }
+
+					 }
+					};
+					console.log("http://leia.cs.spu.edu:3025/api/films/"+filmID);
+					xhttp.open("GET", "http://leia.cs.spu.edu:3025/api/films/"+filmID, true);
+					xhttp.send();
+			}
+
+
+			</script>
+	</body>
+</html>

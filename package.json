@@ -1,0 +1,23 @@
+{
+  "name": "final-akshyp03",
+  "version": "1.0.0",
+  "description": "Final Lab",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csc3221-spring2019/final-akshyp03.git"
+  },
+  "author": "Akshy Palanisamy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/csc3221-spring2019/final-akshyp03/issues"
+  },
+  "homepage": "https://github.com/csc3221-spring2019/final-akshyp03#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.17.1"
+  }
+}

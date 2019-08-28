@@ -1,0 +1,104 @@
+<!-- Page with a form to insert film, there is no need to set the film_id or the last_update, the database sets these values automatically.
+Rating should be a SELECT element with G, PG, PG-13, R, NC-17 options.
+Categories should be a SELECT element with the values retrieved from the database (on load). -->
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+				<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="Author" content="Akshy Palanisamy">
+		<title>Insert Film</title>
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+		<script type="text/javascript" src="utilities.js"></script>
+		<script type="text/javascript">
+			window.addEventListener('load', PopulateSelect);
+		</script>
+	</head>
+
+	<body>
+	    <div class="container">
+			<h1 class="text-center">Add New A Film</h1>
+	        <form action="api/films" name="filmForm" method="POST" onsubmit=" return validation();">
+				<div class="form-group">
+	                <label for="Title">Title:</label>
+	                <input type="text" class="form-control" id="title" name="title">
+	            </div>
+	            <div class="form-group">
+	                <label for="description">Description:</label>
+	                <input type="text" class="form-control" id="description" name="description">
+	            </div>
+	            <div class="form-group">
+	                <label for="releaseYear">Release Year:</label>
+	                <input type="text" class="form-control" id="releaseYear" name="releaseYear">
+	            </div>
+				<div class="form-group">
+	                <label for="length">Duration (min):</label>
+	                <input type="text" class="form-control" id="length" name="length">
+	            </div>
+				<div class="form-group">
+					<label for="rating">Rating:</label>
+					<select name="rating" id="rating" class="form-control">
+						<option value="G">G</option>
+						<option value="PG">PG</option>
+						<option value="PG-13">PG-13</option>
+						<option value="R">R</option>
+						<option value="NC-17">NC-17</option>
+					</select>
+				</div>
+				<div class="form-group">
+	                <label for="category">Category:</label>
+									<div id="categorySelect" name="categorySelect">
+	      </div>
+				<br>
+	      <div class="form-group">
+	           <input type="submit" class="btn btn-primary btn-block"value="Submit">
+	      </div>
+	        </form>
+	    </div>
+			<script>
+			//Validate the form and submits it
+			function validation()
+			{
+			    var title = document.forms["filmForm"]["title"];
+			    var description = document.forms["filmForm"]["description"];
+			    var release = document.forms["filmForm"]["releaseYear"];
+			    var length =  document.forms["filmForm"]["length"];
+
+			    if (title.value == "")
+			    {
+			        window.alert("Please enter a title.");
+			        title.focus();
+							event.preventDefault();
+			        return false;
+			    }
+
+			    if (description.value == "")
+			    {
+			        window.alert("Please enter a description.");
+			        description.focus();
+							event.preventDefault();
+			        return false;
+			    }
+
+			    if ((parseInt(release.value) < 1900 || (parseInt(release.value) >2019)))
+			    {
+			        window.alert("Please enter a valid year.");
+			        release.focus();
+							event.preventDefault();
+			        return false;
+			    }
+
+			    if (parseInt(length.value) < 0)
+			    {
+			        window.alert("Please enter a valid duration");
+			        length.focus();
+							event.preventDefault();
+			        return false;
+			    }
+
+			    return true;
+			}</script>
+	</body>
+</html>
