@@ -7,7 +7,7 @@ Import and setup the films database using the films.sql file.
 
 Update the credentials in the db.js file accordingly.
 
-To run the application use the following command 
+Then, to run the application use the following command:
 
 ```
 $nodejs app.js
