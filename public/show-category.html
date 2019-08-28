@@ -57,8 +57,8 @@ function getCategory(){
        document.getElementById("Table").innerHTML = tableStr;
      }
     };
-    console.log("http://leia.cs.spu.edu:3025/api/films/"+categoryID);
-    xhttp.open("GET", "http://leia.cs.spu.edu:3025/api/categories/"+categoryID, true);
+    console.log("http://localhost:3025/api/films/"+categoryID);
+    xhttp.open("GET", "http://localhost:3025/api/categories/"+categoryID, true);
     xhttp.send();
 }
 
