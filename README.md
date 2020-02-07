@@ -18,5 +18,5 @@ Then open the browser at local http://localhost:3025/ to use the application.
 ## Tools Used
 
 * MySQL
-* Express -NodeJs
+* Express - NodeJs
 * Bootstrap
