@@ -110,7 +110,7 @@ the values, and submit the changes. -->
 			    }
 					event.preventDefault();
 					var xhttp = new XMLHttpRequest();
-					xhttp.open('PUT', "http://localhost:3025/api/films", true);
+					xhttp.open('PUT', "http://akshy.com/api/films", true);
 					xhttp.setRequestHeader('Content-type','application/x-www-form-urlencoded; charset=utf-8');
 					var arr = new URLSearchParams();
 					arr.append("title",document.forms["filmForm"]["title"].value);
@@ -151,8 +151,8 @@ xhttp.send(arr);
 
 					 }
 					};
-					console.log("http://localhost:3025/api/films/"+filmID);
-					xhttp.open("GET", "http://localhost:3025/api/films/"+filmID, true);
+					console.log("http://akshy.com/api/films/"+filmID);
+					xhttp.open("GET", "http://akshy.com/api/films/"+filmID, true);
 					xhttp.send();
 			}
 

@@ -47,7 +47,7 @@ but this page will show the record and a button to confirm delete -->
 				var yes = confirm("Are you sure you want to delete this film?");
 				if (yes == true) {
 					var xhttp = new XMLHttpRequest();
-					xhttp.open('DELETE', "http://localhost:3025/api/films", true);
+					xhttp.open('DELETE', "http://akshy.com/api/films", true);
 					xhttp.setRequestHeader('Content-type','application/x-www-form-urlencoded; charset=utf-8');
 					var arr = new URLSearchParams();
 					arr.append("filmID",document.getElementById('filmID').value);
@@ -90,8 +90,8 @@ document.getElementById("delete").innerHTML = "Film NOT Deleted!";
 			       document.getElementById("Table").innerHTML = tableStr;
 			     }
 			    };
-			    console.log("http://localhost:3025/api/films/"+filmID);
-			    xhttp.open("GET", "http://localhost:3025/api/films-categories/"+filmID, true);
+			    console.log("http://akshy.com/api/films/"+filmID);
+			    xhttp.open("GET", "http://akshy.com/api/films-categories/"+filmID, true);
 			    xhttp.send();
 			}
 
