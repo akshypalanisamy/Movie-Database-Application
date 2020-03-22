@@ -16,6 +16,6 @@ function PopulateSelect(){
 			document.getElementById("categorySelect").innerHTML = retVal;
 		}
 	};
-	xhttp.open("GET", "http://localhost:3025/api/categories", true);
+	xhttp.open("GET", "https://akshy.com/api/categories", true);
 	xhttp.send();
 }

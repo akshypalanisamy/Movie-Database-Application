@@ -65,8 +65,10 @@ the values, and submit the changes. -->
 				<br>
 	      <div class="form-group">
 	           <input type="submit" class="btn btn-primary btn-block" value="Submit">
+						 <p id="update"></p>
 	      </div>
 	        </form>
+
 	    </div>
 			<script>
 			//validates the form and puts the data
@@ -123,6 +125,7 @@ the values, and submit the changes. -->
 
 console.log("SUBMITTED: "+arr);
 xhttp.send(arr);
+document.getElementById("update").innerHTML ="Film Updated!";
 
 
 			}
